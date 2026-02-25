@@ -7,7 +7,6 @@ public abstract class Message {
 	private String user;
 	
 	public Message() {
-		
 	}
 	
 	public Message(MessageType type, String user) {
@@ -16,16 +15,12 @@ public abstract class Message {
 	}
 
 	public MessageType getType() { return this.type; }
-
-	
 	public String getUser() {
 		return user;
 	}
 
 	@Override
 	public String toString() {
-		return "Message [type=" + type + ", user=" + user + "]";
+        return String.format("Message [type=%s, user=%s]", getType().toString(), user);
 	};
-	
-	
 }

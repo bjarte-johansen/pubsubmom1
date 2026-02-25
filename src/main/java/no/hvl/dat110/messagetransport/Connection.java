@@ -50,15 +50,11 @@ public class Connection {
 	}
 
 	public boolean hasData () {
-		
 		boolean hasdata = false;
 		
 		try {
-			
 			hasdata = inStream.available() > 0;
-			
 		} catch (IOException ex) {
-
 			System.out.println("Connection: " + ex.getMessage());
 			ex.printStackTrace();
 		}

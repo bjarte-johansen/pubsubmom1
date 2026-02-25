@@ -18,7 +18,6 @@ public class ClientSession {
 	}
 
 	public void disconnect() {
-
 		if (connection != null) {
 			connection.close();
 		}
@@ -27,26 +26,21 @@ public class ClientSession {
 	public String getUser() {
 		return user;
 	}
-
 	public void setUser(String user) {
 		this.user = user;
 	}
 	
 	public void send(Message message) {
-
 		MessageUtils.send(connection, message);
 	}
 
 	// check whether there is some message on the connection
 	public boolean hasData() {
-
 		return connection.hasData();
 	}
 
 	public Message receive() {
-
 		Message msg = MessageUtils.receive(connection);
-
 		return msg;
 	}
 

@@ -38,7 +38,6 @@ public abstract class Test0Base {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	@AfterEach

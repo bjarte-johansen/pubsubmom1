@@ -2,20 +2,19 @@ package no.hvl.dat110.broker;
 
 import no.hvl.dat110.common.Logger;
 
+import java.util.Objects;
+
 public class BrokerServer extends Thread {
 
 	private static int BROKER_DEFAULTPORT = 8080;
 	
 	public static void main(String[] args) {
-		
 		int port = BROKER_DEFAULTPORT;
 		
-		if (args != null) {
-			if (args.length > 0) {
-				port = Integer.parseInt(args[0]);
-			}
+		if (args != null && args.length > 0 && Objects.nonNull(args[0])) {
+    		port = Integer.parseInt(args[0]);
 		}
-			
+
 		Logger.log("Broker server : " + port);
 		
 		Storage storage = new Storage();
@@ -35,7 +34,5 @@ public class BrokerServer extends Thread {
 		}
 		
 		Logger.log("Broker server stopping ... ");
-		
 	}
-
 }

@@ -25,9 +25,8 @@ public abstract class Stopable extends Thread {
 		Logger.log(name + " running");
 		
 		while (doCont()) {
-
 			doProcess();
-			
+
 		}
 
 		Logger.log(name + " stopping");

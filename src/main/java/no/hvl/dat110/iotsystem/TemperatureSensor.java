@@ -8,7 +8,7 @@ public class TemperatureSensor {
 
 		long seconds = System.currentTimeMillis();
 
-		double temp = RANGE * Math.sin(seconds / 1000);
+		double temp = RANGE * Math.sin((double) seconds / 1000.0);
 
 		return (int) Math.ceil(temp);
 	}

@@ -49,10 +49,8 @@ public class TestIoTSystem {
 		sensorthread.start();
 
 		try {
-
 			displaythread.join();
 			sensorthread.join();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

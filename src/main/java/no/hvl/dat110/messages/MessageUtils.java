@@ -92,13 +92,9 @@ public class MessageUtils {
 	}
 	
 	public static Message receive (Connection connection) {
-		
 		Logger.log("?");
-		
 		Message msg = fromTransportMessage (connection.receive());
-		
 		Logger.log(msg.toString());
-		
 		return msg;
 	}
 }
