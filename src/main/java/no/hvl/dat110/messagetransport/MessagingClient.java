@@ -1,6 +1,8 @@
 package no.hvl.dat110.messagetransport;
 
 
+import no.hvl.dat110.common.Logger;
+
 import java.io.IOException;
 
 import java.net.Socket;
@@ -17,24 +19,17 @@ public class MessagingClient {
 	
 	// connect to messaging server
 	public Connection connect () {
-			
+
 		Socket clientSocket;
 		Connection connection = null;
 		
-		// TODO
 		// create TCP socket for client and connection
-		
 		try {
-	
 			clientSocket = new Socket(server, port);
-    
-			connection = new Connection(clientSocket);
-			
+    		connection = new Connection(clientSocket);
 		} catch (IOException ex) {
-			
-			System.out.println("Messaging client: " + ex.getMessage());
+			Logger.log("Messaging client: " + ex.getMessage());
 			ex.printStackTrace();
-
 		}
 		
 		return connection;

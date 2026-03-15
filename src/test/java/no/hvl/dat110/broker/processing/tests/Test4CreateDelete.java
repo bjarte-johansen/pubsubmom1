@@ -12,11 +12,12 @@ import no.hvl.dat110.client.Client;
 public class Test4CreateDelete extends Test0Base {
 
 	private static String TESTTOPIC = "testtopic";
-	
+
+
 	@Test
 	public void test() {
 				
-		Client client = new Client("client",BROKER_TESTHOST,BROKER_TESTPORT);
+		Client client = new Client("client", BROKER_TESTHOST, GET_LISTENING_PORT());
 		
 		broker.setMaxAccept(1);
 		

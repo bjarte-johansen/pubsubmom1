@@ -1,17 +1,20 @@
 package no.hvl.dat110.iotsystem;
 
 import no.hvl.dat110.client.Client;
+import no.hvl.dat110.common.Logger;
 import no.hvl.dat110.messages.Message;
 import no.hvl.dat110.messages.PublishMsg;
 import no.hvl.dat110.common.TODO;
+
+import java.io.IOException;
 
 public class DisplayDevice {
 	
 	private static final int COUNT = 10;
 		
-	public static void main (String[] args) {
-		
-		System.out.println("Display starting ...");
+	public static void main (String[] args)  {
+
+        Logger.log("Display starting ...");
 		
 		// TODO - START
 				
@@ -31,12 +34,16 @@ public class DisplayDevice {
         client.subscribe("temperature");
 
         for(int i=0; i<COUNT; i++) {
-            synchronized (DisplayDevice.class) {
+            try{
                 Message msg = client.receive();
                 if (msg != null) {
-                    System.out.println("Received message: " + msg.toString());
-                    System.out.println("DISPLAY[" + i + "] :" + ((PublishMsg) msg).getMessage());
+                    Logger.log("Received message: " + msg.toString());
+                    Logger.log("DISPLAY[" + i + "] :" + ((PublishMsg) msg).getMessage());
                 }
+            }catch(IOException ioe){
+                Logger.log("Error receiving message: " + ioe.getMessage());
+                ioe.printStackTrace();
+                break;
             }
         }
 

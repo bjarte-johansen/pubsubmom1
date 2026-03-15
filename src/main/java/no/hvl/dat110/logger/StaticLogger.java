@@ -118,16 +118,15 @@ class StaticLogger implements AutoCloseable{
     public static void log(Object[] tmp) {
         print(Arrays.toString(tmp));
     }
-    public static void log(String key, Object[] tmp) {
-        logKeyValue(key, Arrays.toString(tmp));
-    }
-    public static void log(String key, Object arg1, Object arg2, Object ...rest) {
-        if(rest.length  != 0) {
+
+    public static void log(String key, Object[] tmp) {logKeyValue(key, Arrays.toString(tmp));}
+
+    public static void log(String key, Object arg1, Object arg2, Object... rest) {
+        if (rest.length != 0) {
             Object[] tmp = new Object[rest.length + 2];
             tmp[0] = arg1;
             tmp[1] = arg2;
             System.arraycopy(rest, 0, tmp, 2, rest.length);
-
             logKeyValue(key, Arrays.toString(tmp));
         } else {
             logKeyValue(key, arg1);

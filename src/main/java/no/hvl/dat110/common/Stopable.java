@@ -2,7 +2,7 @@ package no.hvl.dat110.common;
 
 public abstract class Stopable extends Thread {
 
-	private boolean stop = false;
+	private volatile boolean stop = false;
 	protected String name;
 	
 	public Stopable(String name) {
@@ -26,7 +26,6 @@ public abstract class Stopable extends Thread {
 		
 		while (doCont()) {
 			doProcess();
-
 		}
 
 		Logger.log(name + " stopping");

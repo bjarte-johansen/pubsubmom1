@@ -2,16 +2,19 @@ package no.hvl.dat110.iotsystem.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import no.hvl.dat110.alotofnewstuff.Interruptable;
 import org.junit.jupiter.api.Test;
 
 import no.hvl.dat110.broker.BrokerServer;
 import no.hvl.dat110.iotsystem.DisplayDevice;
 import no.hvl.dat110.iotsystem.TemperatureDevice;
 
+
+
 public class TestIoTSystem {
 
 	@Test
-	public void test() {
+	public void test() throws InterruptedException{
 
 		System.out.println("IoT system starting ...");
 
@@ -28,23 +31,16 @@ public class TestIoTSystem {
 		brokerthread.start();
 
 		// allow broker to reaching waiting for incoming connections
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+        Thread.sleep(5000);
 
 		System.out.println("Starting display ...");
 		
 		displaythread.start();
 
 		// allow display to create topic
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+        Thread.sleep(5000);
 
+        // allow display to subscribe to topic
 		System.out.println("Starting sensor ...");
 		sensorthread.start();
 
@@ -56,11 +52,7 @@ public class TestIoTSystem {
 		}
 
 		// allow broker thread to finish processing
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+        Thread.sleep(5000);
 
 		// we check only termination here
 		assertTrue(true);

@@ -4,6 +4,8 @@ import no.hvl.dat110.client.Client;
 import no.hvl.dat110.common.TODO;
 import no.hvl.dat110.messages.PublishMsg;
 
+import java.io.IOException;
+
 public class TemperatureDevice {
 
 	private static final int COUNT = 10;
@@ -20,8 +22,6 @@ public class TemperatureDevice {
         // - publish the temperature(s)
         // - disconnect from the broker
 
-
-
         Client client = new Client("sensor", Common.BROKERHOST, Common.BROKERPORT);
         client.connect();
 
@@ -31,7 +31,6 @@ public class TemperatureDevice {
             System.out.println("READING[" + i + "]:" + String.valueOf(temp));
 
             client.publish("temperature", String.valueOf(temp));
-
 
             try {
                 Thread.sleep(500);

@@ -12,15 +12,15 @@ public class Test2Reconnect extends Test0Base {
 	public void test() {
 		
 		broker.setMaxAccept(2);
-		
-		Client client1 = new Client("client1",BROKER_TESTHOST,BROKER_TESTPORT);
+
+		Client client1 = new Client("client1", BROKER_TESTHOST, GET_LISTENING_PORT());
 		
 		client1.connect();
 		
 		client1.disconnect();
 		
 		try {
-			Thread.sleep(10000);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

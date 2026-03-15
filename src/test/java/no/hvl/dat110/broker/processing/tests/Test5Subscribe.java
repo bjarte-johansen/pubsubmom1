@@ -15,7 +15,7 @@ public class Test5Subscribe extends Test0Base {
 		
 		broker.setMaxAccept(1);
 		
-		Client client = new Client("client",BROKER_TESTHOST,BROKER_TESTPORT);
+		Client client = new Client("client",BROKER_TESTHOST, GET_LISTENING_PORT());
 		
 		client.connect();
 		
@@ -26,8 +26,5 @@ public class Test5Subscribe extends Test0Base {
 		client.unsubscribe(TESTTOPIC);
 		
 		client.disconnect();
-	
-		
 	}
-
 }

@@ -1,5 +1,9 @@
 package no.hvl.dat110.messages;
 
+import no.hvl.dat110.alotofnewstuff.MapMerger;
+
+import java.util.Map;
+
 public class UnsubscribeMsg extends Message {
     private String topic;
     // message sent from client to subscribe on a topic
@@ -20,7 +24,15 @@ public class UnsubscribeMsg extends Message {
     }
 
     @Override
-    public String toString() {
-        return String.format("UnsubscribeMsg [topic=%s]%s", getTopic(), super.toString());
+    protected Map<String, Object> getAttributeMap() {
+        return MapMerger.merge(Map.of("topic", getTopic()), super.getAttributeMap());
     }
+
+
+/*
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + MapMerger.merge(Map.of("topic", getTopic()), super.getAttributeMap())String.format("UnsubscribeMsg [topic=\"%s\"] %s", getTopic(), super.toString());
+    }
+*/
 }

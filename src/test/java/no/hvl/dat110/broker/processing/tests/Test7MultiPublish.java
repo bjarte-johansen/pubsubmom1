@@ -10,6 +10,10 @@ import no.hvl.dat110.client.Client;
 import no.hvl.dat110.messages.Message;
 import no.hvl.dat110.messages.PublishMsg;
 
+import java.io.IOException;
+import java.io.PrintStream;
+
+
 public class Test7MultiPublish extends Test0Base {
 
 	public static String TOPIC = "testtopic";
@@ -19,11 +23,13 @@ public class Test7MultiPublish extends Test0Base {
 
 		broker.setMaxAccept(2);
 
-		Client client1 = new Client("client1", BROKER_TESTHOST, BROKER_TESTPORT);
+		Client client1 = new Client("client1", BROKER_TESTHOST, GET_LISTENING_PORT());
 
-		Client client2 = new Client("client2", BROKER_TESTHOST, BROKER_TESTPORT);
+		Client client2 = new Client("client2", BROKER_TESTHOST, GET_LISTENING_PORT());
 
 		client1.connect();
+
+
 
 		client1.createTopic(TOPIC);
 
@@ -50,15 +56,18 @@ public class Test7MultiPublish extends Test0Base {
 
 		client1.publish(TOPIC, "message from client on topic");
 
-		PublishMsg msg1 = (PublishMsg) client1.receive();
-		PublishMsg msg2 = (PublishMsg) client2.receive();
+        try {
+            PublishMsg msg1 = (PublishMsg) client1.receive();
+            PublishMsg msg2 = (PublishMsg) client2.receive();
+
+            assertEquals("message from client on topic", msg1.getMessage());
+            assertEquals("message from client on topic", msg2.getMessage());
+        } catch (IOException e) {
+            fail("IOException occurred while receiving messages: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
 
 		client1.disconnect();
 		client2.disconnect();
-
-		assertEquals("message from client on topic", msg1.getMessage());
-		assertEquals("message from client on topic", msg2.getMessage());
-
 	}
-
 }

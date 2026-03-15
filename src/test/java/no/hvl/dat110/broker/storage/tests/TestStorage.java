@@ -8,10 +8,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import no.hvl.dat110.broker.ClientSession;
 import no.hvl.dat110.broker.Storage;
-import no.hvl.dat110.messages.ConnectMsg;
-import no.hvl.dat110.messages.MessageUtils;
 
 public class TestStorage {
 
@@ -21,7 +18,7 @@ public class TestStorage {
 	
 	@BeforeEach
 	public void setUp() throws Exception {
-		storage = new Storage();
+		storage = Storage.getInstance().reset();
 	}
 
 	@AfterEach
@@ -31,28 +28,28 @@ public class TestStorage {
 	@Test
 	public void testaddClientSession() {
 		
-		storage.addClientSession(TESTUSER, null);
+		storage.addClientSession(TESTUSER, null, null);
 		
 		assertEquals(storage.getSessions().size(),1);
 		
-		assertNotEquals(storage.getSession(TESTUSER),null);
+		assertNotEquals(storage.getUserState(TESTUSER),null);
 	
 	}
 	
 	@Test
 	public void testremoveClientSession() {
 		
-		storage.addClientSession(TESTUSER, null);
+		storage.addClientSession(TESTUSER, null, null);
 		
 		assertEquals(storage.getSessions().size(),1);
 		
-		assertNotEquals(storage.getSession(TESTUSER),null);
+		assertNotEquals(storage.getUserState(TESTUSER),null);
 
 		storage.removeClientSession(TESTUSER);
 	
 		assertEquals(storage.getSessions().size(),0);
 		
-		assertEquals(storage.getSession(TESTUSER),null);
+		assertEquals(storage.getUserState(TESTUSER),null);
 	}
 	
 	@Test

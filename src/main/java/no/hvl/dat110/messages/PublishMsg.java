@@ -1,6 +1,9 @@
 package no.hvl.dat110.messages;
 
+import no.hvl.dat110.alotofnewstuff.MapMerger;
 import no.hvl.dat110.common.TODO;
+
+import java.util.Map;
 
 public class PublishMsg extends Message {
     private String topic;
@@ -12,12 +15,11 @@ public class PublishMsg extends Message {
         super(MessageType.PUBLISH, user);
         this.topic = topic;
         this.message = message;
-	}
+    }
 
     public String getTopic() {
         return topic;
     }
-
     public void setTopic(String topic) {
         this.topic = topic;
     }
@@ -25,13 +27,12 @@ public class PublishMsg extends Message {
     public String getMessage() {
         return message;
     }
-
     public void setMessage(String message) {
         this.message = message;
     }
 
     @Override
-    public String toString() {
-		return String.format("PublishMsg [type=%s, message=%s]", getType().toString(), getMessage());
-	}
+    protected Map<String, Object> getAttributeMap() {
+        return MapMerger.merge(Map.of("topic", getTopic()), super.getAttributeMap());
+    }
 }

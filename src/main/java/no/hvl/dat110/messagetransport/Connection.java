@@ -1,6 +1,8 @@
 package no.hvl.dat110.messagetransport;
 
 
+import no.hvl.dat110.common.Logger;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -25,7 +27,7 @@ public class Connection {
 
 		} catch (IOException ex) {
 
-			System.out.println("Connection: " + ex.getMessage());
+			Logger.log("Connection: " + ex.getMessage());
 			ex.printStackTrace();
 		}
 	}
@@ -49,6 +51,11 @@ public class Connection {
 
 	}
 
+    public boolean isClosed(){
+
+        return socket.isClosed();
+    }
+/*
 	public boolean hasData () {
 		boolean hasdata = false;
 		
@@ -61,47 +68,40 @@ public class Connection {
 		
 		return hasdata;
 	}
+*/
 
-	public TransportMessage receive() {
 
-		TransportMessage message;
-		byte[] recvbuf;
-		
-		// TODO
-		// read a segment from the input stream and decapsulate into message
-		
-		recvbuf = new byte[MessageConfig.SEGMENTSIZE];
-		
-		try {
-				
-			int read = inStream.read(recvbuf,0,MessageConfig.SEGMENTSIZE);
-			
-			if (read != MessageConfig.SEGMENTSIZE) {
-				throw new IOException("receive - missing data");
-			}
-				
-		} catch (IOException ex) {
+	public TransportMessage receive() throws IOException {
+        TransportMessage message;
+        byte[] recvbuf;
+        int total = 0;
 
-			System.out.println("Connection: " + ex.getMessage());
-			// ex.printStackTrace();
-		}
-		
-		message = new TransportMessage();
-		
-		message.decapsulate(recvbuf);
-		
-		return message;
-		
+        // TODO
+        // read a segment from the input stream and decapsulate into message
+        // NOTE: we played a bit and got help from chatgpt to rewrite a little bit cause something
+        // was off with the way we read from the stream, we need to read until we have read the
+        // whole segment, not just one read call
+
+        recvbuf = new byte[MessageConfig.SEGMENTSIZE];
+
+        while (total < recvbuf.length) {
+            int read = inStream.read(recvbuf, total, recvbuf.length - total);
+            if (read < 0) throw new IOException("stream closed");
+
+            total += read;
+        }
+
+        message = new TransportMessage();
+        message.decapsulate(recvbuf);
+
+        return message;
 	}
 
 	// close the connection by closing streams and the underlying socket
 	public void close() {
-
 		try {
-			
 			outStream.close();
 			inStream.close();
-
 			socket.close();
 		} catch (IOException ex) {
 

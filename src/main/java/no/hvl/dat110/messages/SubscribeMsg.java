@@ -1,5 +1,9 @@
 package no.hvl.dat110.messages;
 
+import no.hvl.dat110.alotofnewstuff.MapMerger;
+
+import java.util.Map;
+
 public class SubscribeMsg extends Message {
     private String topic;
 	// message sent from client to subscribe on a topic 
@@ -12,13 +16,12 @@ public class SubscribeMsg extends Message {
     public String getTopic() {
         return topic;
     }
-
     public void setTopic(String topic) {
         this.topic = topic;
     }
 
     @Override
-    public String toString() {
-        return String.format("SubscribeMsg [topic=%s]%s", getTopic(), super.toString());
+    protected Map<String, Object> getAttributeMap() {
+        return MapMerger.merge(Map.of("topic", getTopic()), super.getAttributeMap());
     }
 }

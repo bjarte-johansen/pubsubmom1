@@ -11,7 +11,7 @@ public class StopableExample extends Stopable {
 	@Override
 	public void doProcess() {
 
-		System.out.println("stopable thread working:" + i);
+		Logger.log("stopable thread working:" + i);
 
 		try {
 
@@ -20,7 +20,7 @@ public class StopableExample extends Stopable {
 
 		} catch (InterruptedException ex) {
 
-			System.out.println("Stopable thread " + ex.getMessage());
+            Logger.log("Stopable thread " + ex.getMessage());
 			ex.printStackTrace();
 		}
 		

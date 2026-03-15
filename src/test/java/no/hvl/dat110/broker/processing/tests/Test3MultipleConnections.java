@@ -13,9 +13,9 @@ public class Test3MultipleConnections extends Test0Base {
 		
 	    broker.setMaxAccept(2);
 		
-		Client client1 = new Client("client1",BROKER_TESTHOST,BROKER_TESTPORT);
+		Client client1 = new Client("client1",BROKER_TESTHOST, GET_LISTENING_PORT());
 		
-		Client client2 = new Client("client2",BROKER_TESTHOST,BROKER_TESTPORT);
+		Client client2 = new Client("client2",BROKER_TESTHOST, GET_LISTENING_PORT());
 		
 		client1.connect();
 		
